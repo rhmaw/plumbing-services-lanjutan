@@ -3,8 +3,8 @@ import 'package:flutter_application_1/constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
-import 'booking_screen.dart';
-import '../../../widget/user_bottom_nav.dart';
+import '../../user/booking_screen.dart';
+import '../../../../widget/user_bottom_nav.dart';
 
 class UserHomeScreen extends StatefulWidget {
   const UserHomeScreen({super.key});
