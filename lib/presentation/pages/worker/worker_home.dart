@@ -10,7 +10,7 @@ class WorkerHomePage extends StatefulWidget {
   State<WorkerHomePage> createState() => _WorkerHomePageState();
 }
 //worker home page
-
+//menampilkan job aktif untuk worker
 class _WorkerHomePageState extends State<WorkerHomePage> {
   List<Map<String, dynamic>> jobs = [];
   bool _isLoading = true;
