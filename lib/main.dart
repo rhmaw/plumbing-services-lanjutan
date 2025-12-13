@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/helper/auth_wrapper.dart';
+import 'features/worker/presentation/pages/worker_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,9 +12,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Admin App',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: const AuthWrapper(),
+      title: 'Plumbing App',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        scaffoldBackgroundColor: const Color(0xfff4f6f8),
+      ),
+      home: const WorkerPage(),
     );
   }
-} 
+}
