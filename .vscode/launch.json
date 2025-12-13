@@ -1,0 +1,10 @@
+{
+    "configurations": [
+        {
+            "name": "Flutter (lib\\features\\user\\domain\\entities\\booking_worker_entity.dart)",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib\\features\\user\\domain\\entities\\booking_worker_entity.dart"
+        }
+    ]
+}
