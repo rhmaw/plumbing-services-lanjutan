@@ -17,6 +17,8 @@ class BookingServiceEntity {
     required this.totalPrice,
   });
 
+  String? get difficulty => null;
+
   BookingServiceEntity copyWith({
     int? jobId,
     String? workerName,
