@@ -17,7 +17,9 @@ class _AdminWorkerHistoryPageState extends State<AdminWorkerHistoryPage> {
   @override
   void initState() {
     super.initState();
-    context.read<AdminBloc>().add(LoadSalaryWorkerEvent(widget.workerId ?? ''));
+    context.read<AdminBloc>().add(
+      LoadSalaryWorkerEvent(int.parse(widget.workerId.toString())),
+    );
   }
 
   @override
