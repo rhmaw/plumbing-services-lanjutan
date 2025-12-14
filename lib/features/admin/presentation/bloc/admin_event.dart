@@ -1,32 +1,50 @@
-abstract class AdminEvent {}
+import 'package:equatable/equatable.dart';
 
-/// Load semua pendaftaran worker
+abstract class AdminEvent extends Equatable {
+  @override
+  List<Object?> get props => [];
+}
+
 class LoadRegistrationsEvent extends AdminEvent {}
 
-/// Load detail worker berdasarkan registrationId
 class LoadWorkerDetailEvent extends AdminEvent {
-  final String registrationId;
-
+  final int registrationId;
   LoadWorkerDetailEvent(this.registrationId);
+
+  @override
+  List<Object?> get props => [registrationId];
 }
 
-/// Accept pendaftaran
 class AcceptRegistrationEvent extends AdminEvent {
-  final String registrationId;
-
+  final int registrationId;
   AcceptRegistrationEvent(this.registrationId);
+
+  @override
+  List<Object?> get props => [registrationId];
 }
 
-/// Reject pendaftaran
+class LoadAcceptedRegistrationsEvent extends AdminEvent {}
+
 class RejectRegistrationEvent extends AdminEvent {
-  final String registrationId;
-
+  final int registrationId;
   RejectRegistrationEvent(this.registrationId);
+
+  @override
+  List<Object?> get props => [registrationId];
 }
 
-/// Load gaji worker
 class LoadSalaryWorkerEvent extends AdminEvent {
-  final String workerId;
-
+  final int workerId;
   LoadSalaryWorkerEvent(this.workerId);
+
+  @override
+  List<Object?> get props => [workerId];
+}
+
+class LoadAdminProfileEvent extends AdminEvent {
+  final int adminId;
+  LoadAdminProfileEvent(this.adminId);
+
+  @override
+  List<Object?> get props => [adminId];
 }
