@@ -11,6 +11,8 @@ class _FormulirWorkerState extends State<FormulirWorker> {
   final _formKey = GlobalKey<FormState>();
 
   String gender = 'Male';
+  String skill = '';
+  // Skill checkboxes
 
   bool instalasiPipa = true;
   bool perbaikanPipa = true;

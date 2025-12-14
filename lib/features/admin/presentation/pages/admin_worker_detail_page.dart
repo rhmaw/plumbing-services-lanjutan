@@ -11,7 +11,9 @@ class AdminWorkerDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<AdminBloc>().add(LoadWorkerDetailEvent(idRegistration));
+    context.read<AdminBloc>().add(
+      LoadWorkerDetailEvent(int.parse(idRegistration)),
+    );
 
     return Scaffold(
       appBar: AppBar(title: const Text('Detail Pekerja')),
@@ -31,7 +33,7 @@ class AdminWorkerDetailPage extends StatelessWidget {
                   const SizedBox(height: 16),
                   Text(w.name, style: const TextStyle(fontSize: 22)),
                   InfoRow(label: 'Email', value: w.email),
-                  InfoRow(label: 'Skill', value: w.skill),
+                  InfoRow(label: 'Skill', value: w.skills),
                   const Spacer(),
                   Row(
                     children: [
@@ -39,7 +41,9 @@ class AdminWorkerDetailPage extends StatelessWidget {
                         child: ElevatedButton(
                           onPressed: () {
                             context.read<AdminBloc>().add(
-                              AcceptRegistrationEvent(idRegistration),
+                              AcceptRegistrationEvent(
+                                int.parse(idRegistration),
+                              ),
                             );
                           },
                           child: const Text('Terima'),
@@ -50,7 +54,9 @@ class AdminWorkerDetailPage extends StatelessWidget {
                         child: OutlinedButton(
                           onPressed: () {
                             context.read<AdminBloc>().add(
-                              RejectRegistrationEvent(idRegistration),
+                              RejectRegistrationEvent(
+                                int.parse(idRegistration),
+                              ),
                             );
                           },
                           child: const Text('Tolak'),
@@ -62,7 +68,6 @@ class AdminWorkerDetailPage extends StatelessWidget {
               ),
             );
           }
-
           return const SizedBox();
         },
       ),
