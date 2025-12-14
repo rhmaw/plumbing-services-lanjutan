@@ -36,7 +36,6 @@ class _HistoryRatingPageState extends State<HistoryRatingPage> {
     );
   }
 
-  // ================= TITLE =================
   Widget _title(bool isTablet) {
     return Text(
       'Order History',
@@ -48,7 +47,6 @@ class _HistoryRatingPageState extends State<HistoryRatingPage> {
     );
   }
 
-  // ================= TAB MENU =================
   Widget _tabMenu(bool isTablet) {
     return Container(
       height: isTablet ? 52 : 44,
@@ -86,7 +84,6 @@ class _HistoryRatingPageState extends State<HistoryRatingPage> {
     );
   }
 
-  // ================= CONTENT =================
   Widget _content() {
     if (selectedTab != 2) {
       return _emptyState();
@@ -101,7 +98,6 @@ class _HistoryRatingPageState extends State<HistoryRatingPage> {
     );
   }
 
-  // ================= EMPTY STATE =================
   Widget _emptyState() {
     return Center(
       child: Column(
@@ -118,10 +114,6 @@ class _HistoryRatingPageState extends State<HistoryRatingPage> {
     );
   }
 }
-
-// =======================================================
-// ================= CARD HISTORY RATING =================
-// =======================================================
 
 class HistoryRatingCard extends StatelessWidget {
   const HistoryRatingCard({super.key});
@@ -158,7 +150,6 @@ class HistoryRatingCard extends StatelessWidget {
     );
   }
 
-  // ================= HEADER =================
   Widget _header(bool isTablet) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -185,7 +176,6 @@ class HistoryRatingCard extends StatelessWidget {
     );
   }
 
-  // ================= DETAIL =================
   Widget _detail(String title, String value, bool isTablet) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 2),
@@ -196,7 +186,6 @@ class HistoryRatingCard extends StatelessWidget {
     );
   }
 
-  // ================= RATING =================
   Widget _ratingStars(int rating, bool isTablet) {
     return Row(
       children: List.generate(5, (index) {
@@ -209,7 +198,6 @@ class HistoryRatingCard extends StatelessWidget {
     );
   }
 
-  // ================= REVIEW BOX =================
   Widget _reviewBox(BuildContext context, bool isTablet) {
     return GestureDetector(
       onTap: () => _showReviewDialog(context, isTablet),
@@ -228,7 +216,6 @@ class HistoryRatingCard extends StatelessWidget {
     );
   }
 
-  // ================= DIALOG =================
   void _showReviewDialog(BuildContext context, bool isTablet) {
     showDialog(
       context: context,
