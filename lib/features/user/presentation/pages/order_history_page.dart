@@ -142,7 +142,7 @@ class _EmptyState extends StatelessWidget {
 }
 
 class _OrderCard extends StatelessWidget {
-  final BookingServiceEntity order;
+  final Booking order;
 
   const _OrderCard({required this.order});
 

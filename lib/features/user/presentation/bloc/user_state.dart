@@ -22,7 +22,7 @@ class UserError extends UserState {
 
 
 class OrderHistoryLoaded extends UserState {
-  final List<BookingServiceEntity> orders;
+  final List<Booking> orders;
 
   const OrderHistoryLoaded(this.orders);
 

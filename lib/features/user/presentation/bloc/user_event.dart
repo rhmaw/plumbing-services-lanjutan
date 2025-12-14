@@ -20,7 +20,7 @@ class GetOrderHistoryEvent extends UserEvent {
 
 
 class CreateBookingEvent extends UserEvent {
-  final BookingServiceEntity booking;
+  final Booking booking;
 
   const CreateBookingEvent(this.booking);
 

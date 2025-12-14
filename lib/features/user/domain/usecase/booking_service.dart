@@ -6,7 +6,7 @@ class BookingWorker {
 
   BookingWorker(this.repository);
 
-  Future<void> execute(BookingServiceEntity booking) async {
+  Future<void> execute(Booking booking) async {
     return await repository.createBooking(booking);
   }
 }
