@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import '../../domain/entities/worker.dart';
 import '../../domain/usecase/accjob_worker.dart';
 
-/// Presentation Layer - Worker Take Services Page
-/// Clean Architecture + Responsive Design
 class WorkerPage extends StatefulWidget {
   final Worker worker;
   final AccJobWorker accJobWorker;
@@ -63,13 +61,15 @@ class _WorkerPageState extends State<WorkerPage> {
                     const SizedBox(height: 6),
                     DropdownButtonFormField<String>(
                       value: tingkatKesulitan,
+                      decoration: _decoration(),
                       items: const [
                         DropdownMenuItem(value: 'Mudah', child: Text('Mudah')),
                         DropdownMenuItem(value: 'Sedang', child: Text('Sedang')),
                         DropdownMenuItem(value: 'Sulit', child: Text('Sulit')),
                       ],
-                      onChanged: (v) => setState(() => tingkatKesulitan = v!),
-                      decoration: _decoration(),
+                      onChanged: (v) => setState(() {
+                        tingkatKesulitan = v!;
+                      }),
                     ),
 
                     const SizedBox(height: 12),
@@ -77,13 +77,15 @@ class _WorkerPageState extends State<WorkerPage> {
                     const SizedBox(height: 6),
                     DropdownButtonFormField<String>(
                       value: status,
+                      decoration: _decoration(),
                       items: const [
                         DropdownMenuItem(value: 'Accepted', child: Text('Accepted')),
                         DropdownMenuItem(value: 'Reject', child: Text('Reject')),
                         DropdownMenuItem(value: 'Finish', child: Text('Finish')),
                       ],
-                      onChanged: (v) => setState(() => status = v!),
-                      decoration: _decoration(),
+                      onChanged: (v) => setState(() {
+                        status = v!;
+                      }),
                     ),
 
                     const SizedBox(height: 16),
@@ -94,7 +96,10 @@ class _WorkerPageState extends State<WorkerPage> {
                         color: Colors.greenAccent.shade100,
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: const Text('Total Biaya: 0'),
+                      child: const Text(
+                        'Total Biaya: 0',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
                     ),
 
                     const SizedBox(height: 20),
@@ -117,15 +122,6 @@ class _WorkerPageState extends State<WorkerPage> {
               ),
             ),
           ),
-          bottomNavigationBar: BottomNavigationBar(
-            currentIndex: 0,
-            selectedItemColor: const Color(0xff6ea0ff),
-            items: const [
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-              BottomNavigationBarItem(icon: Icon(Icons.history), label: 'History'),
-              BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-            ],
-          ),
         );
       },
     );
@@ -141,7 +137,10 @@ class _WorkerPageState extends State<WorkerPage> {
     if (mounted) Navigator.pop(context);
   }
 
-  Widget _buildTextField({required String label, required String hint}) {
+  Widget _buildTextField({
+    required String label,
+    required String hint,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
