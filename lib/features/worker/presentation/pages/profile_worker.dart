@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class WorkerEntity {
+class WorkerProfile {
   final String name;
   final String email;
   final String phone;
   final String address;
   final String avatarUrl;
 
-  WorkerEntity({
+  WorkerProfile({
     required this.name,
     required this.email,
     required this.phone,
@@ -16,35 +16,21 @@ class WorkerEntity {
   });
 }
 
-abstract class WorkerRepository {
-  Future<WorkerEntity> getProfile();
-}
 
-class WorkerRepositoryImpl implements WorkerRepository {
-  @override
-  Future<WorkerEntity> getProfile() async {
-    // simulasi API / database
+class GetWorkerProfile {
+  Future<WorkerProfile> execute() async {
     await Future.delayed(const Duration(milliseconds: 500));
-    return WorkerEntity(
+    return WorkerProfile(
       name: 'Banu Setya',
       email: 'banu@gmail.com',
       phone: '08543381659',
-      address: 'Default Address',
+      address: 'Jl. Raya Banyumas',
       avatarUrl:
           'https://images.unsplash.com/photo-1603415526960-f7e0328c63b1',
     );
   }
 }
 
-
-class GetWorkerProfile {
-  final WorkerRepository repository;
-  GetWorkerProfile(this.repository);
-
-  Future<WorkerEntity> execute() {
-    return repository.getProfile();
-  }
-}
 
 class ProfileWorkerPage extends StatefulWidget {
   const ProfileWorkerPage({super.key});
@@ -54,48 +40,51 @@ class ProfileWorkerPage extends StatefulWidget {
 }
 
 class _ProfileWorkerPageState extends State<ProfileWorkerPage> {
-  late GetWorkerProfile getWorkerProfile;
-
-  @override
-  void initState() {
-    super.initState();
-    getWorkerProfile = GetWorkerProfile(WorkerRepositoryImpl());
-  }
+  final getProfile = GetWorkerProfile();
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final isTablet = size.width > 600;
+    final isTablet = size.width >= 600;
 
     return Scaffold(
-      backgroundColor: Colors.blue[400],
+      backgroundColor: const Color(0xff6ea0ff),
       body: SafeArea(
-        child: FutureBuilder<WorkerEntity>(
-          future: getWorkerProfile.execute(),
+        child: FutureBuilder<WorkerProfile>(
+          future: getProfile.execute(),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
-              return const Center(child: CircularProgressIndicator());
+              return const Center(
+                child: CircularProgressIndicator(color: Colors.white),
+              );
             }
 
-            final worker = snapshot.data!;
+            final profile = snapshot.data!;
 
             return Column(
               children: [
-                SizedBox(height: size.height * 0.04),
+                const SizedBox(height: 24),
+
+
                 CircleAvatar(
                   radius: isTablet ? 70 : 50,
-                  backgroundImage: NetworkImage(worker.avatarUrl),
+                  backgroundImage: NetworkImage(profile.avatarUrl),
                 ),
                 const SizedBox(height: 12),
+
+
                 Text(
-                  worker.name,
+                  profile.name,
                   style: TextStyle(
-                    color: Colors.white,
                     fontSize: isTablet ? 26 : 20,
                     fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
                 ),
-                const SizedBox(height: 20),
+
+                const SizedBox(height: 24),
+
+
                 Expanded(
                   child: Container(
                     padding: EdgeInsets.symmetric(
@@ -112,48 +101,29 @@ class _ProfileWorkerPageState extends State<ProfileWorkerPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _infoTile(Icons.location_on, 'Address', worker.address),
-                        _infoTile(Icons.email, 'E-mail', worker.email),
-                        _infoTile(Icons.phone, 'Phone', worker.phone),
+                        _infoTile(Icons.location_on, 'Address', profile.address),
+                        _infoTile(Icons.email, 'E-mail', profile.email),
+                        _infoTile(Icons.phone, 'Phone', profile.phone),
                         const Spacer(),
-                        SizedBox(
-                          width: double.infinity,
-                          height: 50,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.blue[400],
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
+
+                        /// EDIT BUTTON
+                        _primaryButton(
+                          text: 'Edit Profile',
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => EditProfileWorkerPage(profile),
                               ),
-                            ),
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (_) => const EditProfileWorkerPage(),
-                                ),
-                              );
-                            },
-                            child: const Text('Edit Profile'),
-                          ),
+                            );
+                          },
                         ),
                         const SizedBox(height: 12),
-                        SizedBox(
-                          width: double.infinity,
-                          height: 50,
-                          child: OutlinedButton(
-                            style: OutlinedButton.styleFrom(
-                              side: const BorderSide(color: Colors.red),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                            ),
-                            onPressed: () {},
-                            child: const Text(
-                              'Logout',
-                              style: TextStyle(color: Colors.red),
-                            ),
-                          ),
+
+                        _outlineButton(
+                          text: 'Logout',
+                          color: Colors.red,
+                          onTap: () {},
                         ),
                       ],
                     ),
@@ -169,15 +139,16 @@ class _ProfileWorkerPageState extends State<ProfileWorkerPage> {
 
   Widget _infoTile(IconData icon, String title, String value) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.only(bottom: 18),
       child: Row(
         children: [
-          Icon(icon, color: Colors.blue),
+          Icon(icon, color: const Color(0xff6ea0ff)),
           const SizedBox(width: 12),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+              Text(title,
+                  style: const TextStyle(fontWeight: FontWeight.bold)),
               Text(value),
             ],
           ),
@@ -185,31 +156,86 @@ class _ProfileWorkerPageState extends State<ProfileWorkerPage> {
       ),
     );
   }
-}
 
+  Widget _primaryButton({
+    required String text,
+    required VoidCallback onTap,
+  }) {
+    return SizedBox(
+      width: double.infinity,
+      height: 50,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color(0xff6ea0ff),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
+        onPressed: onTap,
+        child: Text(text),
+      ),
+    );
+  }
+
+  Widget _outlineButton({
+    required String text,
+    required Color color,
+    required VoidCallback onTap,
+  }) {
+    return SizedBox(
+      width: double.infinity,
+      height: 50,
+      child: OutlinedButton(
+        style: OutlinedButton.styleFrom(
+          side: BorderSide(color: color),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
+        onPressed: onTap,
+        child: Text(
+          text,
+          style: TextStyle(color: color),
+        ),
+      ),
+    );
+  }
+}
 class EditProfileWorkerPage extends StatelessWidget {
-  const EditProfileWorkerPage({super.key});
+  final WorkerProfile profile;
+
+  const EditProfileWorkerPage(this.profile, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    final padding = size.width > 600 ? 32.0 : 20.0;
+    final isTablet = MediaQuery.of(context).size.width >= 600;
+    final padding = isTablet ? 32.0 : 20.0;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Edit Profile Worker')),
+      appBar: AppBar(
+        title: const Text('Edit Profile'),
+        backgroundColor: const Color(0xff6ea0ff),
+      ),
       body: Padding(
         padding: EdgeInsets.all(padding),
         child: Column(
           children: [
-            _inputField('Name'),
-            _inputField('E-mail'),
-            _inputField('Phone Number'),
-            _inputField('Address'),
+            _inputField('Name', profile.name),
+            _inputField('E-mail', profile.email),
+            _inputField('Phone', profile.phone),
+            _inputField('Address', profile.address),
             const SizedBox(height: 24),
+
             SizedBox(
               width: double.infinity,
               height: 50,
               child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xff6ea0ff),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
                 onPressed: () => Navigator.pop(context),
                 child: const Text('Save Changes'),
               ),
@@ -220,10 +246,11 @@ class EditProfileWorkerPage extends StatelessWidget {
     );
   }
 
-  Widget _inputField(String label) {
+  Widget _inputField(String label, String value) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16),
-      child: TextField(
+      child: TextFormField(
+        initialValue: value,
         decoration: InputDecoration(
           labelText: label,
           border: const UnderlineInputBorder(),
