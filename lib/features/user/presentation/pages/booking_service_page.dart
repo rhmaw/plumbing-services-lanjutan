@@ -67,8 +67,7 @@ class _BookingServicePageState extends State<BookingServicePage> {
                 if (picked != null) {
                   setState(() {
                     selectedDate = picked;
-                    dateController.text =
-                        picked.toString().split(' ')[0];
+                    dateController.text = picked.toString().split(' ')[0];
                   });
                 }
               },
