@@ -1,13 +1,13 @@
-class BookingServiceEntity {
+class Booking{
   final int jobId;
   final String workerName;
   final String serviceName;
   final DateTime date;
   final String time;
-  final String status; // pending, accepted, rejected, finished
+  final String status; 
   final int totalPrice;
 
-  BookingServiceEntity({
+  Booking({
     required this.jobId,
     required this.workerName,
     required this.serviceName,
@@ -17,7 +17,9 @@ class BookingServiceEntity {
     required this.totalPrice,
   });
 
-  BookingServiceEntity copyWith({
+  String? get difficulty => null;
+
+  Booking copyWith({
     int? jobId,
     String? workerName,
     String? serviceName,
@@ -26,7 +28,7 @@ class BookingServiceEntity {
     String? status,
     int? totalPrice,
   }) {
-    return BookingServiceEntity(
+    return Booking(
       jobId: jobId ?? this.jobId,
       workerName: workerName ?? this.workerName,
       serviceName: serviceName ?? this.serviceName,

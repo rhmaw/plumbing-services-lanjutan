@@ -7,7 +7,7 @@ class GetOrderHistory {
 
   GetOrderHistory(this.repository);
 
-  Future<List<BookingServiceEntity>> execute(String status) async {
+  Future<List<Booking>> execute(String status) async {
     return await repository.getOrderHistory(status);
   }
 }

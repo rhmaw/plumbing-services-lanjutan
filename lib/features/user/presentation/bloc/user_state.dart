@@ -12,10 +12,19 @@ class UserInitial extends UserState {}
 
 class UserLoading extends UserState {}
 
-class UserLoaded extends UserState {
-  final List<BookingServiceEntity> orders;
+class UserError extends UserState {
+  final String message;
+  const UserError(this.message);
 
-  const UserLoaded(this.orders);
+  @override
+  List<Object?> get props => [message];
+}
+
+
+class OrderHistoryLoaded extends UserState {
+  final List<Booking> orders;
+
+  const OrderHistoryLoaded(this.orders);
 
   @override
   List<Object?> get props => [orders];
@@ -26,15 +35,6 @@ class UserSuccess extends UserState {
   final String message;
 
   const UserSuccess(this.message);
-
-  @override
-  List<Object?> get props => [message];
-}
-
-class UserError extends UserState {
-  final String message;
-
-  const UserError(this.message);
 
   @override
   List<Object?> get props => [message];

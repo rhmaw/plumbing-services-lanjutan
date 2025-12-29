@@ -1,4 +1,3 @@
-import '../entities/salary.dart';
 import '../repositories/admin_repository.dart';
 
 class GetSalaryWorker {
@@ -6,7 +5,7 @@ class GetSalaryWorker {
 
   GetSalaryWorker(this.repository);
 
-  Future<Salary> call(String workerId) {
+  Future<int> call(String workerId) {
     return repository.getSalaryWorker(workerId);
   }
 }
