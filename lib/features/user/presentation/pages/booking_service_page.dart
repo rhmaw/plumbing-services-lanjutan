@@ -74,8 +74,32 @@ class BookingServicePage extends StatelessWidget {
                             },
                           );
                         },
-                      ),
-
+                
+            const Text('Tanggal Layanan'),
+            const SizedBox(height: 8),
+            TextFormField(
+              controller: dateController,
+              readOnly: true,
+              decoration: const InputDecoration(
+                hintText: 'Tanggal Layanan',
+                suffixIcon: Icon(Icons.calendar_today),
+              ),
+              onTap: () async {
+                final picked = await showDatePicker(
+                  context: context,
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime.now(),
+                  lastDate: DateTime(2030),
+                );
+                if (picked != null) {
+                  setState(() {
+                    selectedDate = picked;
+                    dateController.text = picked.toString().split(' ')[0];
+                  });
+                }
+              },
+            ),
+            const SizedBox(height: 16),
                       const SizedBox(height: 16),
 
                       
